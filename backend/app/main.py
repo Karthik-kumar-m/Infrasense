@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -5,16 +7,16 @@ from .ai_router import classify_department
 from .db import Base, engine
 from .schemas import AIRouteRequest, AIRouteResponse
 
-app = FastAPI(title="CampusFix API", version="0.1.0")
-
-
-@app.on_event("startup")
-def init_database():
+@asynccontextmanager
+async def lifespan(_: FastAPI):
     try:
         Base.metadata.create_all(bind=engine)
     except SQLAlchemyError:
-        # Allows API startup in environments without a running PostgreSQL instance.
         pass
+    yield
+
+
+app = FastAPI(title="CampusFix API", version="0.1.0", lifespan=lifespan)
 
 
 @app.get("/health")

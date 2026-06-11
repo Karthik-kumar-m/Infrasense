@@ -3,7 +3,7 @@
 ## Frontend (Next.js)
 
 ```bash
-cd /home/runner/work/Infrasense/Infrasense/Karthik-kumar-m/Infrasense/frontend
+cd frontend
 npm install
 npm run dev
 ```
@@ -11,7 +11,7 @@ npm run dev
 ## Backend (FastAPI)
 
 ```bash
-cd /home/runner/work/Infrasense/Infrasense/Karthik-kumar-m/Infrasense/backend
+cd backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
